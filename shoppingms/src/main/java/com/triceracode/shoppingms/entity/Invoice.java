@@ -15,7 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
+
+import com.triceracode.shoppingms.model.Customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +49,9 @@ public class Invoice {
     private List<InvoiceItem> items;
 
     private String status;
+    
+    @Transient
+    private Customer customerRef;
 
     public Invoice(){
         items = new ArrayList<>();

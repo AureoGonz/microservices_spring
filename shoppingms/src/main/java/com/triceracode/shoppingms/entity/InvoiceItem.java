@@ -9,6 +9,8 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.triceracode.shoppingms.model.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +33,9 @@ public class InvoiceItem {
 
 	@Transient
 	private Double subTotal;
+	
+	@Transient
+	private Product productRef;
 
 	public Double getSubTotal() {
 		if (this.price > 0 && this.quantity > 0) {
