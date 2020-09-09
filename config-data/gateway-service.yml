@@ -25,3 +25,7 @@ spring:
           uri: lb://shoppingms
           predicates:
             - Path=/invoices/**
+        - id: auth
+          uri: lb://auth
+          predicates:
+            - Path=/login/**
