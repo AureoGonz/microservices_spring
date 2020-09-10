@@ -11,10 +11,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import com.triceracode.core.property.JwtConfiguration;
 
 @SpringBootApplication
-@EnableConfigurationProperties(value= JwtConfiguration.class)
 @EntityScan({"com.triceracode.core.entity"})
 @EnableJpaRepositories({"com.triceracode.core.repository"})
 @EnableEurekaClient
+@EnableConfigurationProperties(value= JwtConfiguration.class)
 @ComponentScan({"com.triceracode"})
 public class AuthServiceApplication {
 

@@ -66,6 +66,7 @@ public class TokenCreator {
 		return new JWTClaimsSet.Builder().subject(user.getUsername())
 				.claim("authorities",
 						auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+				.claim("userId", user.getId())
 				.issuer(ISSUER_TOKEN)
 				.expirationTime(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000)).build();
 	}

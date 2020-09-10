@@ -1,6 +1,5 @@
 package com.triceracode.auth.security.filter;
 
-
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.addHeader(jwtConfiguration.getHeader().getName(), jwtConfiguration.getHeader().getPrefix()+ encryptedToken);
 		
 		response.setContentType("application/json");
-		response.getWriter().append("{\""+TOKEN_BEARER_PREFIX+"\":\""+encryptedToken+"\"}");
+		response.getWriter().append("{\""+TOKEN_BEARER_PREFIX+"\":\""+signedJWT.serialize()+"\"}");
 	}
 
 }
