@@ -6,12 +6,22 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:8081/eureka/
+      defaultZone: http://localhost:8099/eureka/
     fetch-registry: true
     register-with-eureka: true
 
 zuul:
   sensitive-headers: Cookie
+  routes:
+    customerms:
+      path: /customers/**
+      serviceId: customerms
+    productms:
+      path: /products/**
+      serviceId: productms
+    shoppingms:
+      path: /invoices/**
+      serviceId: shoppingms
 
 jwt:
   config:
