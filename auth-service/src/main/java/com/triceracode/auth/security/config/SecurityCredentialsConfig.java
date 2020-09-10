@@ -1,31 +1,31 @@
 package com.triceracode.auth.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
 
 import com.triceracode.auth.security.filter.JwtAuthenticationFilter;
 import com.triceracode.core.property.JwtConfiguration;
-
-import lombok.RequiredArgsConstructor;
+import com.triceracode.token.creator.TokenCreator;
+import com.triceracode.token.security.config.SecurityTokenConfig;
 
 @EnableWebSecurity
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
+public class SecurityCredentialsConfig extends SecurityTokenConfig {
 
 	private final UserDetailsService userDetailsService;
-	private final JwtConfiguration jwtConfiguration;
+	private final TokenCreator tokenCreator;
+
+	public SecurityCredentialsConfig(JwtConfiguration jwtConfiguration, UserDetailsService userDetailsService,
+			TokenCreator tokenCreator) {
+		super(jwtConfiguration);
+		this.userDetailsService = userDetailsService;
+		this.tokenCreator = tokenCreator;
+	}
 
 	@Override
 	@Bean
@@ -35,11 +35,8 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-				.and().sessionManagement().sessionCreationPolicy(STATELESS).and().exceptionHandling()
-				.authenticationEntryPoint((req, res, e) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
-				.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtConfiguration)).authorizeRequests()
-				.antMatchers(jwtConfiguration.getLoginUri()).permitAll().anyRequest().authenticated();
+		http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtConfiguration, tokenCreator));
+		super.configure(http);
 	}
 
 	@Override

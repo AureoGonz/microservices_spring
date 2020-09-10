@@ -1,4 +1,4 @@
-package com.triceracode.auth.security.utils;
+package com.triceracode.token.utils;
 
 public class Constants {
 	public static final String REQUEST_TOKEN_URL = "/login";
