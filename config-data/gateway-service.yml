@@ -2,30 +2,47 @@ server:
   port: 8080
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
-    serviceUrl:
-      defaultZone: http://localhost:8099/eureka/
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+    fetch-registry: true
+    register-with-eureka: true
 
-spring:
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: customerms
-          uri: lb://customerms
-          predicates:
-            - Path=/customers/**
-        - id: productms
-          uri: lb://productms
-          predicates:
-            - Path=/products/**
-        - id: shoppingms
-          uri: lb://shoppingms
-          predicates:
-            - Path=/invoices/**
-        - id: auth
-          uri: lb://auth
-          predicates:
-            - Path=/login/**
+zuul:
+  sensitive-headers: Cookie
+
+jwt:
+  config:
+    login-url: /login
+
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8099/eureka/
+
+#spring:
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#      routes:
+#        - id: customerms
+#          uri: lb://customerms
+#          predicates:
+#            - Path=/customers/**
+#        - id: productms
+#          uri: lb://productms
+#          predicates:
+#            - Path=/products/**
+#        - id: shoppingms
+#          uri: lb://shoppingms
+#          predicates:
+#            - Path=/invoices/**
+#        - id: auth
+#          uri: lb://auth
+#          predicates:
+#            - Path=/login/**
