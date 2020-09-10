@@ -22,6 +22,9 @@ zuul:
     shoppingms:
       path: /invoices/**
       serviceId: shoppingms
+    auth:
+      path: /login/**
+      serviceId: auth
 
 jwt:
   config:
