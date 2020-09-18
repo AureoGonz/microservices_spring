@@ -9,6 +9,7 @@ import com.triceracode.token.converter.TokenConverter;
 import com.triceracode.token.security.config.SecurityTokenConfig;
 import com.triceracode.token.security.filter.JwtAuthorizationFilter;
 
+
 @EnableWebSecurity
 public class SecurityConfig extends SecurityTokenConfig{
 

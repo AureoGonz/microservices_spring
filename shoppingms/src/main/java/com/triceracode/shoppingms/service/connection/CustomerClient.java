@@ -11,5 +11,5 @@ import com.triceracode.shoppingms.model.Customer;
 public interface CustomerClient {
 
 	@GetMapping(path = "/customers/{id}")
-	public ResponseEntity<Customer> get(@PathVariable long id);
+	public ResponseEntity<Customer> get(@PathVariable(value="id") long id);
 }

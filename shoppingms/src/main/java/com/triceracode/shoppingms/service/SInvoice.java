@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.triceracode.shoppingms.entity.Invoice;
 import com.triceracode.shoppingms.entity.InvoiceItem;
 import com.triceracode.shoppingms.entity.repository.RInvoice;
-import com.triceracode.shoppingms.entity.repository.RInvoiceItem;
 import com.triceracode.shoppingms.model.Customer;
 import com.triceracode.shoppingms.model.Product;
 import com.triceracode.shoppingms.service.connection.CustomerClient;
@@ -21,9 +20,6 @@ public class SInvoice implements IServiceInvoice {
 
 	@Autowired
 	private RInvoice rInvoice;
-
-	@Autowired
-	private RInvoiceItem rItem;
 
 	@Autowired
 	private CustomerClient customerClient;

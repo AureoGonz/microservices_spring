@@ -15,9 +15,9 @@ import com.triceracode.shoppingms.model.Product;
 public interface ProductClient {
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Product> get(@PathVariable Long id);
+	public ResponseEntity<Product> get(@PathVariable(value="id") Long id);
 
 	@PutMapping(path = "/{id}/stock")
-	public ResponseEntity<Product> updateStock(@PathVariable Long id,
+	public ResponseEntity<Product> updateStock(@PathVariable(value="id") Long id,
 			@RequestParam(name = "quantity", required = true) Double quantity);
 }
